@@ -2,7 +2,6 @@
 
 {% block styles %}
     {# CSS HERE #}
-
     <style>
         .card {
             border-right: 0;
@@ -24,21 +23,21 @@
     <script>
         function add_action(elem, base_action_id) {
             base_action_id = base_action_id || $(elem).closest('[data-action-id]').attr('data-action-id');
-            var text = prompt('What is the name of your ' + (base_action_id != '_base' ? 'sub-' : '') + 'action?');
+            const text = prompt(`What is the name of your ${base_action_id !== '_base' ? 'sub-' : ''}action?`);
             if (text.length) {
                 $.ajax({
                     url: '{{ request.path }}',
                     type: 'POST',
                     data: {task: 'create_action', new_action_text: text, base_action_id: base_action_id},
                 }).done(function (server_data) {
-                    if (server_data.result == 'ok') {
+                    if (server_data.result === 'ok') {
                         // reload
                         window.location.reload();
                     } else {
                         // display user allowed error
                         alert('Sorry something went wrong - ' + server_data.message);
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function () {
                     // generic error
                     alert('Sorry! Something went very wrong.')
                 });
@@ -47,21 +46,21 @@
 
 
         function delete_action(elem) {
-            var action_id = $(elem).closest('[data-action-id]').attr('data-action-id');
+            const action_id = $(elem).closest('[data-action-id]').attr('data-action-id');
             if (confirm('Delete this action?')) {
                 $.ajax({
                     url: '{{ request.path }}',
                     type: 'POST',
                     data: {task: 'delete_action', action_id: action_id},
                 }).done(function (server_data) {
-                    if (server_data.result == 'ok') {
+                    if (server_data.result === 'ok') {
                         // reload
                         window.location.reload();
                     } else {
                         // display user allowed error
                         alert('Sorry something went wrong - ' + server_data.message);
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function () {
                     // generic error
                     alert('Sorry! Something went very wrong.')
                 });
@@ -69,21 +68,21 @@
         }
 
         function mark_action_as_complete(elem) {
-            var action_id = $(elem).closest('[data-action-id]').attr('data-action-id');
+            const action_id = $(elem).closest('[data-action-id]').attr('data-action-id');
             if (confirm('Mark action as complete?')) {
                 $.ajax({
                     url: '{{ request.path }}',
                     type: 'POST',
                     data: {task: 'mark_action_as_complete', action_id: action_id},
                 }).done(function (server_data) {
-                    if (server_data.result == 'ok') {
+                    if (server_data.result === 'ok') {
                         // reload
                         window.location.reload();
                     } else {
                         // display user allowed error
                         alert('Sorry something went wrong - ' + server_data.message);
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function () {
                     // generic error
                     alert('Sorry! Something went very wrong.')
                 });
@@ -91,21 +90,22 @@
         }
 
         function unmark_action_as_complete(elem) {
-            var action_id = $(elem).closest('[data-action-id]').attr('data-action-id');
+            const action_id = $(elem).closest('[data-action-id]').attr('data-action-id');
+
             if (confirm('Unmark action as complete?')) {
                 $.ajax({
                     url: '{{ request.path }}',
                     type: 'POST',
                     data: {task: 'unmark_action_as_complete', action_id: action_id},
                 }).done(function (server_data) {
-                    if (server_data.result == 'ok') {
+                    if (server_data.result === 'ok') {
                         // reload
                         window.location.reload();
                     } else {
                         // display user allowed error
                         alert('Sorry something went wrong - ' + server_data.message);
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function () {
                     // generic error
                     alert('Sorry! Something went very wrong.')
                 });
@@ -119,14 +119,14 @@
                     type: 'POST',
                     data: {task: 'delete_goal'},
                 }).done(function (server_data) {
-                    if (server_data.result == 'ok') {
+                    if (server_data.result === 'ok') {
                         // reload
                         window.location.href = '/';
                     } else {
                         // display user allowed error
                         alert('Sorry something went wrong - ' + server_data.message);
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function () {
                     // generic error
                     alert('Sorry! Something went very wrong.')
                 });
@@ -138,7 +138,7 @@
 
 {# defining recursive macro function to display actions #}
 {% macro render_action(action, sub=False) %}
-    <div class="card mb-3 mt-4 {% if sub %}sub-card{% else %}mt-5{% endif %}" data-action-id="{{ action.id }}">
+    <div class="card mb-3 mt-4 {% if sub %} sub-card {% else %}mt-5{% endif %}" data-action-id="{{ action.id }}">
         <div class="card-header">
             {# buttons #}
             <span class="float-right">

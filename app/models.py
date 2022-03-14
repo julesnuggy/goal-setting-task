@@ -70,7 +70,7 @@ class Goal(db.Model):
         # fetch non-nested actions
         return self.actions.filter(GoalAction.parent_action_id == None)
 
-    ## TODO - task 2
+    # TODO - 2
     def refresh_percentage_complete(self):
         # ...
         self.percentage_complete = 0  # <-- insert result here
@@ -125,12 +125,12 @@ class GoalAction(db.Model):
         self.goal.refresh_percentage_complete()
         return action
 
-    ## TODO - task 1
+    # TODO - 1
     def mark_as_complete(self):
         self.completed = datetime.datetime.utcnow()
         # ...
 
-    ## TODO - task 1
+    # TODO - 1
     def unmark_as_complete(self):
         self.completed = None
         # ...

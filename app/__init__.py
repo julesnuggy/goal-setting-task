@@ -17,12 +17,13 @@ def create_app():
 
     app.register_blueprint(goals_blueprint)
 
-    #### INIT SETUP - if run for the first time, create database and import users
+    # Initial setup - if run for the first time, create database and import users
     from .models import User
 
     with app.app_context():
         try:
-            assert User.query.first()
+            if not (User.query.first()):
+                raise RuntimeError("Missing user")
         except:
             # create databases
             db.create_all()

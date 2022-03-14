@@ -38,3 +38,8 @@ def test_it_marks_as_complete():
     goal.mark_as_complete()
     # assert
     assert goal.completed is not None
+
+
+# TODO - 2
+def test_it_sets_correct_percentage_complete():
+    pass

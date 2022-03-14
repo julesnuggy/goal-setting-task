@@ -81,9 +81,7 @@ def view_goal(goal_id):
             if request.form["base_action_id"] == "_base":
                 # add base action
                 try:
-                    new_action = goal.create_action(
-                        text=request.form["new_action_text"]
-                    )
+                    goal.create_action(text=request.form["new_action_text"])
                 except ValueError as ve:
                     return jsonify(
                         {
@@ -104,9 +102,7 @@ def view_goal(goal_id):
                     return jsonify({"result": "error", "message": "Invalid action"})
 
                 try:
-                    new_action = base_action.create_subaction(
-                        text=request.form["new_action_text"]
-                    )
+                    base_action.create_subaction(text=request.form["new_action_text"])
                 except ValueError as ve:
                     return jsonify(
                         {

@@ -3,21 +3,21 @@
 {% block scripts %}
     <script>
         function add_goal() {
-            var text = prompt('What is the name of your goal?');
+            const text = prompt('What is the name of your goal?');
             if (text.length) {
                 $.ajax({
                     url: '{{ request.path }}',
                     type: 'POST',
                     data: {'new_goal_text': text},
                 }).done(function (server_data) {
-                    if (server_data.result == 'ok') {
+                    if (server_data.result === 'ok') {
                         // redirect
                         window.location.href = server_data.redirect_url;
                     } else {
                         // display user allowed error
                         alert('Sorry something went wrong - ' + server_data.message);
                     }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function () {
                     // generic error
                     alert('Sorry! Something went very wrong.')
                 });

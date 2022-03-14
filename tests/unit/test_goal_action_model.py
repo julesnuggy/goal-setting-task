@@ -17,3 +17,13 @@ def test_it_creates_subaction():
     # assert
     assert action_2.text == "SomeSubAction"
     assert action_2.parent_action == action_1
+
+
+# TODO - 1
+def test_it_marks_as_complete():
+    pass
+
+
+# TODO - 1
+def test_it_marks_as_not_complete():
+    pass

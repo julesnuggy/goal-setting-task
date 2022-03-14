@@ -1,7 +1,6 @@
-from app import create_app, mail, celery, sentry
-from app.models import *
+from app import create_app
 
-app = create_app(cf)
+app = create_app()
 
 if __name__ == "__main__":
     app.run(port="8080")

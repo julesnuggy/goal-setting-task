@@ -60,7 +60,7 @@ def login():
         else:
             session["active_user"] = user.id
             flash("Logged in as {}".format(user.name))
-            return redirect(url_for("test.home"))
+            return redirect(url_for("goals.home"))
 
     return render_template("login.html", users=User.query.order_by(User.username))
 
@@ -162,4 +162,4 @@ def logout():
         session.pop("active_user")
     except KeyError:
         pass
-    return redirect(url_for("test.ez_login"))
+    return redirect(url_for("goals.login"))

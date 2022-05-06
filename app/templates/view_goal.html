@@ -200,7 +200,7 @@
     {# progress bar #}
     <div class="progress">
         <div class="progress-bar" role="progressbar" style="width: {{ goal.percentage_complete }}%"
-             aria-valuenow="{{ goal.percentage_complete }}" aria-valuemin="0" aria-valuemax="100"></div>
+             aria-valuenow="{{ goal.percentage_complete }}" aria-valuemin="0" aria-valuemax="100">{{ goal.percentage_complete|round|int }}%</div>
     </div>
 
     {# goal html content #}

@@ -119,6 +119,8 @@ class GoalAction(db.Model):
             raise ValueError("Actions must have some text")
 
         action = GoalAction(text=text, goal=self.goal)
+        db.session.add(action)
+
         self.child_actions.append(action)
         db.session.flush()  # in case refresh_percentage_complete uses further queries
 

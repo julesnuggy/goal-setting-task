@@ -22,7 +22,7 @@ shell: ## Starts interactive Flask Python console
 	@ venv/bin/flask shell
 
 serve: ## Runs local debug server
-	@ venv/bin/flask --app manage.py --debug run --host=0.0.0.0 --port=8008
+	@ venv/bin/flask --app manage.py --debug run --port=8008
 
 test: ## Runs tests
 	@ venv/bin/python -m pytest tests/

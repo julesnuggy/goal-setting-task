@@ -2,7 +2,7 @@
 
 ## Installation Instructions
 
-### Requires Python >=3.8
+### Requires Python >=3.10
 
 
 ### create a virtualenv

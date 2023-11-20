@@ -8,7 +8,7 @@
 ### create a virtualenv
 
 ```
-python3 -m venv venv
+python -m venv venv
 ```
 
 ### install requirements
@@ -23,18 +23,10 @@ pip3 install -r requirements.txt
 source venv/bin/activate
 ```
 
-### recommended - set flask to development mode
-
-(so it refreshes the web server if you make any changes to your code)
-
-```
-export FLASK_ENV=development
-```
-
 ### run flask server
 
 ```
-flask run
+make serve
 ```
 
 ### you can also use the shell to do any debugging/code testing
@@ -42,11 +34,11 @@ flask run
 ### included is a module to run this in ipython
 
 ```
-flask shell
+make shell
 ```
 
 ### run tests
 
 ```
-venv/bin/python -m pytest tests/
+make test
 ```

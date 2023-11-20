@@ -11,16 +11,16 @@
 python -m venv venv
 ```
 
-### install requirements
-
-```
-pip3 install -r requirements.txt
-```
-
 ### activate virtualenv
 
 ```
 source venv/bin/activate
+```
+
+### install requirements
+
+```
+pip3 install -r requirements.txt
 ```
 
 ### run flask server

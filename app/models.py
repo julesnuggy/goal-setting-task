@@ -138,7 +138,6 @@ class GoalAction(db.Model):
     def delete_action(self):
         goal = self.goal
         self.goal.actions.remove(self)
-        # db.session.delete(self)
         db.session.flush()  # in case refresh_percentage_complete uses further queries
 
         goal.refresh_percentage_complete()

@@ -130,7 +130,10 @@ class GoalAction(db.Model):
     # TODO - 1
     def mark_as_complete(self):
         self.completed = datetime.datetime.utcnow()
-        # ...
+
+        if self.child_actions:
+            for action in self.child_actions:
+                action.mark_as_complete()
 
     # TODO - 1
     def unmark_as_complete(self):

@@ -163,8 +163,16 @@ class GoalAction(db.Model):
             for action in self.child_actions:
                 action.unmark_as_complete()
 
-        if self.parent_action and self.parent_action.completed:
-            self.parent_action.completed = None
+        def unmark_parent(parent_action):
+            if parent_action is None:
+                return
+
+            parent_action.completed = None
+
+            if parent_action.parent_action and parent_action.parent_action.completed:
+                unmark_parent(parent_action.parent_action)
+
+        unmark_parent(self.parent_action)
 
         self.goal.refresh_percentage_complete()
 

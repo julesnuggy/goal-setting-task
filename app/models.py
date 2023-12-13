@@ -71,9 +71,22 @@ class Goal(db.Model):
         return self.actions.filter(GoalAction.parent_action_id == None)
 
     # TODO - 2
+    def calculate_completion(self, action, proportion):
+        if action.completed:
+            self.percentage_complete += proportion
+        elif action.child_actions:
+            action_proportion = proportion/len(action.child_actions)
+            for child in action.child_actions:
+                self.calculate_completion(child, action_proportion)
+
     def refresh_percentage_complete(self):
-        # ...
-        self.percentage_complete = 0  # <-- insert result here
+        self.percentage_complete = 0
+        base_actions = self.base_actions.all()
+        proportion = 100/len(base_actions)
+
+        for base_action in base_actions:
+            self.calculate_completion(base_action, proportion)
+
         return self.percentage_complete
 
     def delete_goal(self):
@@ -140,6 +153,8 @@ class GoalAction(db.Model):
             if not self.parent_action.completed and all(child_completions):
                 self.parent_action.mark_as_complete()
 
+        self.goal.refresh_percentage_complete()
+
     # TODO - 1
     def unmark_as_complete(self):
         self.completed = None
@@ -150,6 +165,8 @@ class GoalAction(db.Model):
 
         if self.parent_action and self.parent_action.completed:
             self.parent_action.completed = None
+
+        self.goal.refresh_percentage_complete()
 
     def delete_action(self):
         goal = self.goal

@@ -148,6 +148,9 @@ class GoalAction(db.Model):
             for action in self.child_actions:
                 action.unmark_as_complete()
 
+        if self.parent_action and self.parent_action.completed:
+            self.parent_action.completed = None
+
     def delete_action(self):
         goal = self.goal
         self.goal.actions.remove(self)

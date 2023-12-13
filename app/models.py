@@ -135,6 +135,11 @@ class GoalAction(db.Model):
             for action in self.child_actions:
                 action.mark_as_complete()
 
+        if self.parent_action:
+            child_completions = [child.completed is not None for child in self.parent_action.child_actions]
+            if not self.parent_action.completed and all(child_completions):
+                self.parent_action.mark_as_complete()
+
     # TODO - 1
     def unmark_as_complete(self):
         self.completed = None

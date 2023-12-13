@@ -87,7 +87,7 @@ class Goal(db.Model):
         for base_action in base_actions:
             self.calculate_completion(base_action, proportion)
 
-        return self.percentage_complete
+        self.percentage_complete = round(self.percentage_complete)
 
     def delete_goal(self):
         db.session.delete(self)

@@ -143,7 +143,10 @@ class GoalAction(db.Model):
     # TODO - 1
     def unmark_as_complete(self):
         self.completed = None
-        # ...
+
+        if self.child_actions:
+            for action in self.child_actions:
+                action.unmark_as_complete()
 
     def delete_action(self):
         goal = self.goal
